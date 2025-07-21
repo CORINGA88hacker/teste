@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Admin - LearnOnline</title>
+<link rel="stylesheet" href="style.css" />
+<script type="module" src="admin.js" defer></script>
+</head>
+<body>
+<header>
+  <h1>Painel Admin</h1>
+  <button id="btnLogout">Sair</button>
+</header>
+<main>
+  <section>
+    <h2>Criar Novo Curso</h2>
+    <form id="cursoForm">
+      <input type="text" id="cursoTitulo" placeholder="Título do Curso" required />
+      <textarea id="cursoDescricao" placeholder="Descrição" required></textarea>
+      <input type="url" id="cursoCapa" placeholder="URL da Capa (imagem)" required />
+      <button type="submit">Salvar Curso</button>
+    </form>
+  </section>
+  <section style="margin-top:40px;">
+    <h2>Criar Usuário</h2>
+    <form id="usuarioForm">
+      <input type="email" id="usuarioEmail" placeholder="Email" required />
+      <input type="password" id="usuarioSenha" placeholder="Senha" required minlength="6" />
+      <input type="number" id="usuarioValidade" placeholder="Dias de acesso" required min="1" />
+      <label><input type="checkbox" id="usuarioAdmin" /> Admin?</label>
+      <button type="submit">Criar Usuário</button>
+    </form>
+  </section>
+  <section style="margin-top:40px;">
+    <h2>Adicionar Aula ao Curso</h2>
+    <form id="aulaForm">
+      <select id="selectCurso" required>
+        <option value="">Selecione o Curso</option>
+      </select>
+      <input type="text" id="aulaNome" placeholder="Nome da Aula" required />
+      <input type="url" id="aulaLinkPDF" placeholder="Link PDF (Google Drive)" required />
+      <label><input type="checkbox" id="aulaDisponivel" checked /> Disponível</label>
+      <button type="submit">Salvar Aula</button>
+    </form>
+  </section>
+  <section style="margin-top:40px;">
+    <h2>Cursos Existentes</h2>
+    <ul id="listaCursos"></ul>
+  </section>
+</main>
+</body>
+</html>
