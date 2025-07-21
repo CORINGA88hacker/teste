@@ -1,20 +1,4 @@
-import { auth, db, ref, get, signInWithEmailAndPassword, onAuthStateChanged, signOut } from './firebase.js';
-
-const loginForm = document.getElementById('loginForm');
-
-loginForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const email = loginForm.email.value;
-  const password = loginForm.password.value;
-
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
-    window.location.href = 'admin.html';
-  } catch (err) {
-    alert('Erro ao fazer login: ' + err.message);
-  }
-});
-
+// auth.js (modificado)
 onAuthStateChanged(auth, async (user) => {
   if (user) {
     const snap = await get(ref(db, 'usuarios/' + user.uid));
@@ -30,8 +14,14 @@ onAuthStateChanged(auth, async (user) => {
       await signOut(auth);
       return;
     }
-    if (window.location.pathname.endsWith('login.html')) {
+    // Só redireciona se estiver na tela de login
+    if (window.location.pathname.includes('login.html')) {
       window.location.href = 'admin.html';
+    }
+  } else {
+    // Se estiver na tela de admin e não estiver logado, redireciona pra login
+    if (window.location.pathname.includes('admin.html')) {
+      window.location.href = 'login.html';
     }
   }
 });
