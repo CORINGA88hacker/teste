@@ -1,612 +1,21 @@
 {
-  "personagem_01": {
-    "name": "Char 1",
-    "image": "personagem/personagem_01.png",
-    "lines": [
-      {
-        "text": "Eu só queria que isso parrace",
-        "choices": [
-          {
-            "text": "null",
-            "next": "ok",
-            "effect": {
-              "score": 1
-            }
-          },
-          {
-            "text": "null",
-            "next": "sad",
-            "effect": {
-              "score": 0
-            }
-          },
-          {
-            "text": "null",
-            "next": "rude",
-            "effect": {
-              "score": -1
-            }
-          }
-        ]
-      },
-      {
-        "text": "Eu não agento mias tudo isso.",
-        "choices": [
-          {
-            "text": "null.",
-            "next": "help",
-            "effect": {
-              "score": 2
-            }
-          },
-          {
-            "text": "null.",
-            "next": "later",
-            "effect": {
-              "score": 0
-            }
-          }
-        ]
-      }
-    ]
-  },
-  "personagem_02": {
-    "name": "Ana",
-    "image": "personagem/personagem_02.png",
-    "lines": [
-      {
-        "text": "humm",
-        "choices": [
-          {
-            "text": "null",
-            "next": "ok",
-            "effect": {
-              "score": 1
-            }
-          },
-          {
-            "text": "null",
-            "next": "sad",
-            "effect": {
-              "score": 0
-            }
-          },
-          {
-            "text": "null.",
-            "next": "rude",
-            "effect": {
-              "score": -1
-            }
-          }
-        ]
-      },
-      {
-        "text": "null",
-        "choices": [
-          {
-            "text": "null",
-            "next": "help",
-            "effect": {
-              "score": 2
-            }
-          },
-          {
-            "text": "null",
-            "next": "later",
-            "effect": {
-              "score": 0
-            }
-          }
-        ]
-      }
-    ]
-  },
-  "personagem_03": {
-    "name": "null",
-    "image": "personagem/personagem_03.png",
-    "lines": [
-      {
-        "text": "Ei, você viu aquele preto que está estudando aqui?",
-        "choices": [
-          {
-            "text": "Sim eu vi.",
-            "next": "ok",
-            "effect": {
-              "score": 1
-            }
-          },
-          {
-            "text": "Não eu chegei a ver ele.",
-            "next": "sad",
-            "effect": {
-              "score": 0
-            }
-          },
-          {
-            "text": "Serio.",
-            "next": "rude",
-            "effect": {
-              "score": -1
-            }
-          }
-        ]
-      },
-      {
-        "text": "null",
-        "choices": [
-          {
-            "text": "Sim, posso ajudar.",
-            "next": "help",
-            "effect": {
-              "score": 2
-            }
-          },
-          {
-            "text": "Não agora.",
-            "next": "later",
-            "effect": {
-              "score": 0
-            }
-          }
-        ]
-      }
-    ]
-  },
-  "personagem_04": {
-    "name": "bruna",
-    "image": "personagem/personagem_04.png",
-    "lines": [
-      {
-        "text": "Ficou sabendo que a quele preto vai estudar na nossa sala?",
-        "choices": [
-          {
-            "text": "Não.",
-            "next": "ok",
-            "effect": {
-              "score": 1
-            }
-          },
-          {
-            "text": "Aff.",
-            "next": "sad",
-            "effect": {
-              "score": 0
-            }
-          },
-          {
-            "text": "null.",
-            "next": "rude",
-            "effect": {
-              "score": -1
-            }
-          }
-        ]
-      },
-      {
-        "text": "ele bem que poderia ter ido pra outra escola",
-        "choices": [
-          {
-            "text": "Sim, concordo.",
-            "next": "help",
-            "effect": {
-              "score": 2
-            }
-          },
-          {
-            "text": "null.",
-            "next": "later",
-            "effect": {
-              "score": 0
-            }
-          }
-        ]
-      }
-    ]
-  },
-  "personagem_05": {
-    "name": "Char 5",
-    "image": "personagem/personagem_05.png",
-    "lines": [
-      {
-        "text": "Sai da qui seu macaco",
-        "choices": [
-          {
-            "text": "Ok, ja estou saindo.",
-            "next": "ok",
-            "effect": {
-              "score": 1
-            }
-          },
-          {
-            "text": "null.",
-            "next": "sad",
-            "effect": {
-              "score": 0
-            }
-          },
-          {
-            "text": "null.",
-            "next": "rude",
-            "effect": {
-              "score": -1
-            }
-          }
-        ]
-      },
-      {
-        "text": "Anda logo sai da qui seu macaco",
-        "choices": [
-          {
-            "text": "ok.",
-            "next": "help",
-            "effect": {
-              "score": 2
-            }
-          },
-          {
-            "text": "...",
-            "next": "later",
-            "effect": {
-              "score": 0
-            }
-          }
-        ]
-      }
-    ]
-  },
-  "personagem_06": {
-    "name": "Char 6",
-    "image": "personagem/personagem_06.png",
-    "lines": [
-      {
-        "text": "Ficou sabendo que a quele preto vai estudar na nossa sala?",
-        "choices": [
-          {
-            "text": "Não.",
-            "next": "ok",
-            "effect": {
-              "score": 1
-            }
-          },
-          {
-            "text": "Vix",
-            "next": "sad",
-            "effect": {
-              "score": 0
-            }
-          },
-          {
-            "text": "null.",
-            "next": "rude",
-            "effect": {
-              "score": -1
-            }
-          }
-        ]
-      },
-      {
-        "text": "nill",
-        "choices": [
-          {
-            "text": "null",
-            "next": "help",
-            "effect": {
-              "score": 2
-            }
-          },
-          {
-            "text": "null.",
-            "next": "later",
-            "effect": {
-              "score": 0
-            }
-          }
-        ]
-      }
-    ]
-  },
-  "personagem_07": {
-    "name": "Char 7",
-    "image": "personagem/personagem_07.png",
-    "lines": [
-      {
-        "text": "ele bem que poderia ter ido pra outra escola",
-        "choices": [
-          {
-            "text": " ",
-            "next": "ok",
-            "effect": {
-              "score": 1
-            }
-          },
-          {
-            "text": " ",
-            "next": "sad",
-            "effect": {
-              "score": 0
-            }
-          },
-          {
-            "text": " ",
-            "next": "rude",
-            "effect": {
-              "score": -1
-            }
-          }
-        ]
-      },
-      {
-        "text": " ",
-        "choices": [
-          {
-            "text": " ",
-            "next": "help",
-            "effect": {
-              "score": 2
-            }
-          },
-          {
-            "text": " ",
-            "next": "later",
-            "effect": {
-              "score": 0
-            }
-          }
-        ]
-      }
-    ]
-  },
-  "personagem_08": {
-    "name": "001",
-    "image": "personagem/personagem_08.png",
-    "lines": [
-      {
-        "text": "O mana, a quele urubu estuda na sua sala",
-        "choices": [
-          {
-            "text": "infelismente",
-            "next": "ok",
-            "effect": {
-              "score": 1
-            }
-          },
-          {
-            "text": "Sim",
-            "next": "sad",
-            "effect": {
-              "score": 0
-            }
-          },
-          {
-            "text": " ",
-            "next": "rude",
-            "effect": {
-              "score": -1
-            }
-          }
-        ]
-      },
-      {
-        "text": " ",
-        "choices": [
-          {
-            "text": " ",
-            "next": "help",
-            "effect": {
-              "score": 2
-            }
-          },
-          {
-            "text": " ",
-            "next": "later",
-            "effect": {
-              "score": 0
-            }
-          }
-        ]
-      }
-    ]
-  },
-  "personagem_09": {
-    "name": "Char 9",
-    "image": "personagem/personagem_09.png",
-    "lines": [
-      {
-        "text": "men para aquele buraco negro desaparece da escola",
-        "choices": [
-          {
-            "text": "Poise",
-            "next": "ok",
-            "effect": {
-              "score": 1
-            }
-          },
-          {
-            "text": " ",
-            "next": "sad",
-            "effect": {
-              "score": 0
-            }
-          },
-          {
-            "text": " ",
-            "next": "rude",
-            "effect": {
-              "score": -1
-            }
-          }
-        ]
-      },
-      {
-        "text": " ",
-        "choices": [
-          {
-            "text": " ",
-            "next": "help",
-            "effect": {
-              "score": 2
-            }
-          },
-          {
-            "text": " ",
-            "next": "later",
-            "effect": {
-              "score": 0
-            }
-          }
-        ]
-      }
-    ]
-  },
-  "personagem_10": {
-    "name": "Char 10",
-    "image": "personagem/personagem_10.png",
-    "lines": [
-      {
-        "text": "Ei, Finalmente a aula acabou",
-        "choices": [
-          {
-            "text": " ",
-            "next": "ok",
-            "effect": {
-              "score": 1
-            }
-          },
-          {
-            "text": " ",
-            "next": "sad",
-            "effect": {
-              "score": 0
-            }
-          },
-          {
-            "text": " ",
-            "next": "rude",
-            "effect": {
-              "score": -1
-            }
-          }
-        ]
-      },
-      {
-        "text": " ",
-        "choices": [
-          {
-            "text": " ",
-            "next": "help",
-            "effect": {
-              "score": 2
-            }
-          },
-          {
-            "text": " ",
-            "next": "later",
-            "effect": {
-              "score": 0
-            }
-          }
-        ]
-      }
-    ]
-  },
-  "personagem_11": {
-    "name": "Char 11",
-    "image": "personagem/personagem_11.png",
-    "lines": [
-      {
-        "text": "Você sabe por que o fundo do mar é escuro?",
-        "choices": [
-          {
-            "text": "Não porque",
-            "next": "ok",
-            "effect": {
-              "score": 1
-            }
-          },
-          {
-            "text": "kkkk sim",
-            "next": "sad",
-            "effect": {
-              "score": 0
-            }
-          },
-          {
-            "text": " ",
-            "next": "rude",
-            "effect": {
-              "score": -1
-            }
-          }
-        ]
-      },
-      {
-        "text": "Porque os negros não sabiam nadar kkkkk",
-        "choices": [
-          {
-            "text": "kkkkk",
-            "next": "help",
-            "effect": {
-              "score": 2
-            }
-          },
-          {
-            "text": "essa foi boa",
-            "next": "later",
-            "effect": {
-              "score": 0
-            }
-          }
-        ]
-      }
-    ]
-  },
   "personagem_12": {
     "name": "Char 12",
     "image": "personagem/personagem_12.png",
     "lines": [
       {
-        "text": "Ei, eu sou o 12. Como você está?",
+        "text": "Oi, tudo bem com você?",
         "choices": [
-          {
-            "text": "Estou bem.",
-            "next": "ok",
-            "effect": {
-              "score": 1
-            }
-          },
-          {
-            "text": "Não muito.",
-            "next": "sad",
-            "effect": {
-              "score": 0
-            }
-          },
-          {
-            "text": "Não é da sua conta.",
-            "next": "rude",
-            "effect": {
-              "score": -1
-            }
-          }
+          { "text": "Estou bem.", "next": "ok", "effect": {"score":1} },
+          { "text": "Não muito.", "next": "sad", "effect": {"score":0} },
+          { "text": "Não é da sua conta.", "next": "rude", "effect": {"score":-1} }
         ]
       },
       {
-        "text": "12 pergunta: Você quer conversar sobre bullying?",
+        "text": "Quer que eu te ajude com alguma coisa?",
         "choices": [
-          {
-            "text": "Sim, posso ajudar.",
-            "next": "help",
-            "effect": {
-              "score": 2
-            }
-          },
-          {
-            "text": "Não agora.",
-            "next": "later",
-            "effect": {
-              "score": 0
-            }
-          }
+          { "text": "Sim, posso ajudar.", "next": "help", "effect": {"score":2} },
+          { "text": "Não agora.", "next": "later", "effect": {"score":0} }
         ]
       }
     ]
@@ -616,48 +25,18 @@
     "image": "personagem/personagem_13.png",
     "lines": [
       {
-        "text": "Ei, eu sou o 13. Como você está?",
+        "text": "Oi, tudo certo por aí?",
         "choices": [
-          {
-            "text": "Estou bem.",
-            "next": "ok",
-            "effect": {
-              "score": 1
-            }
-          },
-          {
-            "text": "Não muito.",
-            "next": "sad",
-            "effect": {
-              "score": 0
-            }
-          },
-          {
-            "text": "Não é da sua conta.",
-            "next": "rude",
-            "effect": {
-              "score": -1
-            }
-          }
+          { "text": "Estou bem.", "next": "ok", "effect": {"score":1} },
+          { "text": "Não muito.", "next": "sad", "effect": {"score":0} },
+          { "text": "Prefiro não falar.", "next": "rude", "effect": {"score":-1} }
         ]
       },
       {
-        "text": "13 pergunta: Você quer conversar sobre bullying?",
+        "text": "Quer conversar sobre algo que aconteceu hoje?",
         "choices": [
-          {
-            "text": "Sim, posso ajudar.",
-            "next": "help",
-            "effect": {
-              "score": 2
-            }
-          },
-          {
-            "text": "Não agora.",
-            "next": "later",
-            "effect": {
-              "score": 0
-            }
-          }
+          { "text": "Sim, posso ajudar.", "next": "help", "effect": {"score":2} },
+          { "text": "Depois.", "next": "later", "effect": {"score":0} }
         ]
       }
     ]
@@ -667,48 +46,18 @@
     "image": "personagem/personagem_14.png",
     "lines": [
       {
-        "text": "Ei, eu sou o 14. Como você está?",
+        "text": "E aí, como você está?",
         "choices": [
-          {
-            "text": "Estou bem.",
-            "next": "ok",
-            "effect": {
-              "score": 1
-            }
-          },
-          {
-            "text": "Não muito.",
-            "next": "sad",
-            "effect": {
-              "score": 0
-            }
-          },
-          {
-            "text": "Não é da sua conta.",
-            "next": "rude",
-            "effect": {
-              "score": -1
-            }
-          }
+          { "text": "Bem.", "next": "ok", "effect": {"score":1} },
+          { "text": "Não muito bem.", "next": "sad", "effect": {"score":0} },
+          { "text": "Não é da sua conta.", "next": "rude", "effect": {"score":-1} }
         ]
       },
       {
-        "text": "14 pergunta: Você quer conversar sobre bullying?",
+        "text": "Quer desabafar sobre algo?",
         "choices": [
-          {
-            "text": "Sim, posso ajudar.",
-            "next": "help",
-            "effect": {
-              "score": 2
-            }
-          },
-          {
-            "text": "Não agora.",
-            "next": "later",
-            "effect": {
-              "score": 0
-            }
-          }
+          { "text": "Sim, quero ajuda.", "next": "help", "effect": {"score":2} },
+          { "text": "Não agora.", "next": "later", "effect": {"score":0} }
         ]
       }
     ]
@@ -718,48 +67,18 @@
     "image": "personagem/personagem_15.png",
     "lines": [
       {
-        "text": "Ei, eu sou o 15. Como você está?",
+        "text": "Oi, como foi seu dia?",
         "choices": [
-          {
-            "text": "Estou bem.",
-            "next": "ok",
-            "effect": {
-              "score": 1
-            }
-          },
-          {
-            "text": "Não muito.",
-            "next": "sad",
-            "effect": {
-              "score": 0
-            }
-          },
-          {
-            "text": "Não é da sua conta.",
-            "next": "rude",
-            "effect": {
-              "score": -1
-            }
-          }
+          { "text": "Foi bom.", "next": "ok", "effect": {"score":1} },
+          { "text": "Não muito.", "next": "sad", "effect": {"score":0} },
+          { "text": "Prefiro não dizer.", "next": "rude", "effect": {"score":-1} }
         ]
       },
       {
-        "text": "15 pergunta: Você quer conversar sobre bullying?",
+        "text": "Quer fazer alguma coisa juntos?",
         "choices": [
-          {
-            "text": "Sim, posso ajudar.",
-            "next": "help",
-            "effect": {
-              "score": 2
-            }
-          },
-          {
-            "text": "Não agora.",
-            "next": "later",
-            "effect": {
-              "score": 0
-            }
-          }
+          { "text": "Sim", "next": "help", "effect": {"score":2} },
+          { "text": "Não agora", "next": "later", "effect": {"score":0} }
         ]
       }
     ]
@@ -769,48 +88,18 @@
     "image": "personagem/personagem_16.png",
     "lines": [
       {
-        "text": "Ei, eu sou o 16. Como você está?",
+        "text": "Oi, tudo tranquilo?",
         "choices": [
-          {
-            "text": "Estou bem.",
-            "next": "ok",
-            "effect": {
-              "score": 1
-            }
-          },
-          {
-            "text": "Não muito.",
-            "next": "sad",
-            "effect": {
-              "score": 0
-            }
-          },
-          {
-            "text": "Não é da sua conta.",
-            "next": "rude",
-            "effect": {
-              "score": -1
-            }
-          }
+          { "text": "Sim.", "next": "ok", "effect": {"score":1} },
+          { "text": "Não muito.", "next": "sad", "effect": {"score":0} },
+          { "text": "Não é da sua conta.", "next": "rude", "effect": {"score":-1} }
         ]
       },
       {
-        "text": "16 pergunta: Você quer conversar sobre bullying?",
+        "text": "Quer conversar sobre algo que te incomodou?",
         "choices": [
-          {
-            "text": "Sim, posso ajudar.",
-            "next": "help",
-            "effect": {
-              "score": 2
-            }
-          },
-          {
-            "text": "Não agora.",
-            "next": "later",
-            "effect": {
-              "score": 0
-            }
-          }
+          { "text": "Sim, posso ajudar.", "next": "help", "effect": {"score":2} },
+          { "text": "Depois.", "next": "later", "effect": {"score":0} }
         ]
       }
     ]
@@ -820,48 +109,18 @@
     "image": "personagem/personagem_17.png",
     "lines": [
       {
-        "text": "Ei, eu sou o 17. Como você está?",
+        "text": "Ei, você está bem?",
         "choices": [
-          {
-            "text": "Estou bem.",
-            "next": "ok",
-            "effect": {
-              "score": 1
-            }
-          },
-          {
-            "text": "Não muito.",
-            "next": "sad",
-            "effect": {
-              "score": 0
-            }
-          },
-          {
-            "text": "Não é da sua conta.",
-            "next": "rude",
-            "effect": {
-              "score": -1
-            }
-          }
+          { "text": "Sim.", "next": "ok", "effect": {"score":1} },
+          { "text": "Não muito.", "next": "sad", "effect": {"score":0} },
+          { "text": "Prefiro não responder.", "next": "rude", "effect": {"score":-1} }
         ]
       },
       {
-        "text": "17 pergunta: Você quer conversar sobre bullying?",
+        "text": "Quer que eu te ajude com algo?",
         "choices": [
-          {
-            "text": "Sim, posso ajudar.",
-            "next": "help",
-            "effect": {
-              "score": 2
-            }
-          },
-          {
-            "text": "Não agora.",
-            "next": "later",
-            "effect": {
-              "score": 0
-            }
-          }
+          { "text": "Sim", "next": "help", "effect": {"score":2} },
+          { "text": "Não agora", "next": "later", "effect": {"score":0} }
         ]
       }
     ]
@@ -871,48 +130,18 @@
     "image": "personagem/personagem_18.png",
     "lines": [
       {
-        "text": "Ei, eu sou o 18. Como você está?",
+        "text": "Oi, está tudo bem?",
         "choices": [
-          {
-            "text": "Estou bem.",
-            "next": "ok",
-            "effect": {
-              "score": 1
-            }
-          },
-          {
-            "text": "Não muito.",
-            "next": "sad",
-            "effect": {
-              "score": 0
-            }
-          },
-          {
-            "text": "Não é da sua conta.",
-            "next": "rude",
-            "effect": {
-              "score": -1
-            }
-          }
+          { "text": "Sim.", "next": "ok", "effect": {"score":1} },
+          { "text": "Não muito.", "next": "sad", "effect": {"score":0} },
+          { "text": "Prefiro não falar.", "next": "rude", "effect": {"score":-1} }
         ]
       },
       {
-        "text": "18 pergunta: Você quer conversar sobre bullying?",
+        "text": "Quer conversar sobre como se sente?",
         "choices": [
-          {
-            "text": "Sim, posso ajudar.",
-            "next": "help",
-            "effect": {
-              "score": 2
-            }
-          },
-          {
-            "text": "Não agora.",
-            "next": "later",
-            "effect": {
-              "score": 0
-            }
-          }
+          { "text": "Sim, quero ajudar.", "next": "help", "effect": {"score":2} },
+          { "text": "Não agora", "next": "later", "effect": {"score":0} }
         ]
       }
     ]
@@ -922,48 +151,39 @@
     "image": "personagem/personagem_19.png",
     "lines": [
       {
-        "text": "Ei, eu sou o 19. Como você está?",
+        "text": "Oi, como está se sentindo hoje?",
         "choices": [
-          {
-            "text": "Estou bem.",
-            "next": "ok",
-            "effect": {
-              "score": 1
-            }
-          },
-          {
-            "text": "Não muito.",
-            "next": "sad",
-            "effect": {
-              "score": 0
-            }
-          },
-          {
-            "text": "Não é da sua conta.",
-            "next": "rude",
-            "effect": {
-              "score": -1
-            }
-          }
+          { "text": "Bem.", "next": "ok", "effect": {"score":1} },
+          { "text": "Não muito bem.", "next": "sad", "effect": {"score":0} },
+          { "text": "Prefiro não responder.", "next": "rude", "effect": {"score":-1} }
         ]
       },
       {
-        "text": "19 pergunta: Você quer conversar sobre bullying?",
+        "text": "Quer que eu te conte algo para animar?",
         "choices": [
-          {
-            "text": "Sim, posso ajudar.",
-            "next": "help",
-            "effect": {
-              "score": 2
-            }
-          },
-          {
-            "text": "Não agora.",
-            "next": "later",
-            "effect": {
-              "score": 0
-            }
-          }
+          { "text": "Sim.", "next": "help", "effect": {"score":2} },
+          { "text": "Não agora", "next": "later", "effect": {"score":0} }
+        ]
+      }
+    ]
+  },
+  "personagem_20": {
+    "name": "Char 20",
+    "image": "personagem/personagem_20.png",
+    "lines": [
+      {
+        "text": "Oi, já se sentiu melhor hoje?",
+        "choices": [
+          { "text": "Sim.", "next": "ok", "effect": {"score":1} },
+          { "text": "Não muito.", "next": "sad", "effect": {"score":0} },
+          { "text": "Prefiro não responder.", "next": "rude", "effect": {"score":-1} }
+        ]
+      },
+      {
+        "text": "Quer conversar sobre algo que te incomoda?",
+        "choices": [
+          { "text": "Sim.", "next": "help", "effect": {"score":2} },
+          { "text": "Não agora.", "next": "later", "effect": {"score":0} }
         ]
       }
     ]
