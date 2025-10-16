@@ -1,0 +1,137 @@
+{
+  "titulo": "Sombras do Pátio",
+  "personagens": [
+    {
+      "id": "yuri",
+      "nome": "Yuri",
+      "descricao": "Garoto negro, novo na escola."
+    },
+    {
+      "id": "lucas",
+      "nome": "Lucas",
+      "descricao": "Líder do grupo que pratica bullying."
+    },
+    {
+      "id": "sofia",
+      "nome": "Sofia",
+      "descricao": "Colega que se aproxima de Yuri."
+    },
+    {
+      "id": "diretor",
+      "nome": "Diretor",
+      "descricao": "Figura de autoridade da escola."
+    }
+  ],
+  "cenas": [
+    {
+      "id": "cap1",
+      "titulo": "O Primeiro Dia",
+      "falas": [
+        {
+          "personagem": "yuri",
+          "expressao": "timido",
+          "texto": "Hoje vai ser diferente... eu sinto."
+        },
+        {
+          "personagem": "aluno",
+          "expressao": "zombeteiro",
+          "texto": "Ah, mais um novo... vamos ver quanto tempo dura."
+        },
+        {
+          "personagem": "lucas",
+          "expressao": "desdenhoso",
+          "texto": "Olha o novo, pensa que é importante?",
+          "opcoes": [
+            {
+              "texto": "ignorar",
+              "resultado": "os outros cochicham"
+            },
+            {
+              "texto": "responder",
+              "resultado": "Lucas ri ainda mais"
+            }
+          ]
+        },
+        {
+          "personagem": "sofia",
+          "expressao": "curiosa",
+          "texto": "Oi, sou a Sofia. Quer sentar aqui?"
+        }
+      ]
+    },
+    {
+      "id": "cap2",
+      "titulo": "O Muro das Palavras",
+      "falas": [
+        {
+          "personagem": "yuri",
+          "expressao": "triste",
+          "texto": "Por que escreveriam isso? Não entendo."
+        },
+        {
+          "personagem": "sofia",
+          "expressao": "solidaria",
+          "texto": "Não apague sozinho. Vamos buscar alguém que te escute."
+        }
+      ]
+    },
+    {
+      "id": "cap3",
+      "titulo": "Vozes que se Calam",
+      "falas": [
+        {
+          "personagem": "professor",
+          "expressao": "neutro",
+          "texto": "Formem grupos, por favor."
+        },
+        {
+          "personagem": "aluno",
+          "expressao": "sussurro",
+          "texto": "Ninguém quer ficar com ele."
+        },
+        {
+          "personagem": "sofia",
+          "expressao": "corajosa",
+          "texto": "Eu fico com você."
+        }
+      ]
+    },
+    {
+      "id": "cap4",
+      "titulo": "A Provação",
+      "falas": [
+        {
+          "personagem": "lucas",
+          "expressao": "agressivo",
+          "texto": "Você não é bem-vindo aqui."
+        },
+        {
+          "personagem": "yuri",
+          "expressao": "firme",
+          "texto": "Você ri de mim pra não olhar pra você mesmo."
+        },
+        {
+          "personagem": "diretor",
+          "expressao": "autoridade",
+          "texto": "Chega! Vamos resolver isso com responsabilidade."
+        }
+      ]
+    },
+    {
+      "id": "cap5",
+      "titulo": "O Desenho no Pátio",
+      "falas": [
+        {
+          "personagem": "yuri",
+          "expressao": "esperanca",
+          "texto": "Se a gente pintar algo bonito aqui, talvez outras vozes apareçam."
+        },
+        {
+          "personagem": "sofia",
+          "expressao": "sorriso",
+          "texto": "Vamos juntos. As palavras que constroem ficam."
+        }
+      ]
+    }
+  ]
+}

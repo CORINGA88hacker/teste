@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chat — Sombras do Pátio</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="firebase.js"></script>
+</head>
+<body class="theme">
+  <main>
+    <h2>Chat Global</h2>
+    <div id="chat-messages" class="chat-messages"></div>
+    <form id="chat-form">
+      <input id="chat-input" placeholder="Escreve..." autocomplete="off" />
+      <button type="submit">Enviar</button>
+    </form>
+  </main>
+  <script>
+    // Chat uses window.AppChat defined in firebase.js
+    document.getElementById('chat-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const t = document.getElementById('chat-input').value;
+      if (!t) return;
+      await window.AppChat.sendMessage(t);
+      document.getElementById('chat-input').value = '';
+    });
+  </script>
+</body>
+</html>

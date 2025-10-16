@@ -1,0 +1,205 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jogo + Chat Global</title>
+<style>
+  :root{--bg:#071018;--panel:#0d1114;--muted:#9aa0a6;--accent:#ff6b35;}
+  html,body{height:100%;margin:0;font-family:Inter,Segoe UI,Arial;background:linear-gradient(180deg,#041019,#071018);color:#e6eef6;}
+  .app{display:flex;height:100vh;gap:10px;padding:10px;box-sizing:border-box;}
+  .left{flex:1;background:var(--panel);border-radius:10px;overflow:auto;padding:8px;box-sizing:border-box;}
+  .right{width:360px;max-width:40%;background:var(--panel);border-radius:10px;padding:8px;box-sizing:border-box;display:flex;flex-direction:column;}
+  /* Game container will receive the injected game's body */
+  #gameArea{width:100%;height:100%;min-height:300px;}
+  .chatHeader{display:flex;align-items:center;gap:8px;}
+  .profile-preview{width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid #0b0f13;}
+  .chatBox{flex:1;overflow:auto;padding:8px;background:#060709;border-radius:8px;margin-top:8px;}
+  .msg{margin-bottom:8px;padding:6px;border-radius:6px;background:#0b1720;display:flex;gap:8px;align-items:flex-start;}
+  .msg .meta{font-size:12px;color:#9fb0c0;}
+  input,button,textarea{width:100%;box-sizing:border-box;padding:8px;border-radius:6px;border:1px solid #222;background:#071018;color:#eaf3ff}
+  .row{display:flex;gap:8px;}
+  .small{font-size:13px;color:var(--muted);}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="left" id="leftPanel">
+    <div style="font-weight:700;margin-bottom:8px;">Jogo</div>
+    <div id="gameArea"></div>
+  </div>
+
+  <div class="right">
+    <div class="chatHeader">
+      <img id="pfPreview" class="profile-preview" src="" alt="perfil">
+      <div style="flex:1;">
+        <div id="displayName" style="font-weight:700;">Convidado</div>
+        <div class="small" id="schoolLabel">Nome não definido</div>
+      </div>
+    </div>
+
+    <div style="margin-top:8px;">
+      <input id="nameInput" placeholder="Escolha um nome público (aparecerá no chat)">
+      <input id="photoFile" type="file" accept="image/*" style="margin-top:6px;">
+      <button id="setProfileBtn" style="margin-top:6px;">Salvar nome & foto</button>
+      <div class="small" style="margin-top:6px;">Seu nome e foto ficam no seu navegador e (opcional) a foto é enviada ao Firebase Storage.</div>
+    </div>
+
+    <div class="chatBox" id="chatBox"></div>
+
+    <div style="margin-top:8px;">
+      <textarea id="messageInput" rows="2" placeholder="Escreva sua mensagem..."></textarea>
+      <div class="row" style="margin-top:6px;">
+        <button id="sendBtn">Enviar</button>
+        <button id="clearBtn">Limpar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-storage-compat.js"></script>
+
+<script src="./firebase.js"></script>
+
+<script>
+initFirebase();
+
+// Utility
+const $ = id => document.getElementById(id);
+const chatBox = $('chatBox');
+const sendBtn = $('sendBtn');
+const messageInput = $('messageInput');
+const nameInput = $('nameInput');
+const setProfileBtn = $('setProfileBtn');
+const pfPreview = $('pfPreview');
+const photoFile = $('photoFile');
+const displayNameEl = $('displayName');
+const schoolLabel = $('schoolLabel');
+const clearBtn = $('clearBtn');
+
+let profile = {
+  name: localStorage.getItem('player_name') || '',
+  photoURL: localStorage.getItem('player_photo') || ''
+};
+
+if (profile.name) { displayNameEl.textContent = profile.name; schoolLabel.textContent = 'Conectado como ' + profile.name; }
+if (profile.photoURL) { pfPreview.src = profile.photoURL; }
+
+// Upload photo optionally and save profile
+setProfileBtn.addEventListener('click', async () => {
+  const name = nameInput.value.trim();
+  if (!name && !photoFile.files.length) {
+    alert('Escolha um nome ou selecione uma foto para atualizar o perfil.');
+    return;
+  }
+  if (photoFile.files.length) {
+    const file = photoFile.files[0];
+    const storageRef = firebase.storage().ref();
+    const ref = storageRef.child('profiles/anon_' + Date.now() + '_' + file.name);
+    const uploadTask = ref.put(file);
+    uploadTask.on('state_changed', ()=>{}, err => { alert('Erro no upload: ' + err.message); }, async ()=>{
+      const url = await uploadTask.snapshot.ref.getDownloadURL();
+      profile.photoURL = url;
+      localStorage.setItem('player_photo', url);
+      pfPreview.src = url;
+      if (name) { profile.name = name; localStorage.setItem('player_name', name); displayNameEl.textContent = name; schoolLabel.textContent = 'Conectado como ' + name; }
+      alert('Foto enviada. Perfil atualizado.');
+    });
+  } else {
+    // only name
+    if (name) { profile.name = name; localStorage.setItem('player_name', name); displayNameEl.textContent = name; schoolLabel.textContent = 'Conectado como ' + name; alert('Nome salvo.'); }
+  }
+});
+
+// Chat: global chat at /global_chat/messages
+const chatRef = firebase.database().ref('global_chat/messages');
+
+sendBtn.addEventListener('click', async () => {
+  const txt = messageInput.value.trim();
+  if (!txt) return;
+  const payload = {
+    text: txt,
+    name: profile.name || 'Convidado',
+    ts: Date.now(),
+    photo: profile.photoURL || ''
+  };
+  await chatRef.push(payload);
+  messageInput.value = '';
+});
+
+// Listen for messages
+chatRef.limitToLast(200).on('child_added', snap => {
+  const m = snap.val();
+  const div = document.createElement('div');
+  div.className = 'msg';
+  const img = document.createElement('img');
+  img.src = m.photo || '';
+  img.style.width = '40px'; img.style.height = '40px'; img.style.borderRadius='50%'; img.style.objectFit='cover';
+  const content = document.createElement('div');
+  content.innerHTML = `<div class="meta"><strong>${escapeHtml(m.name)}</strong> · <span style="font-size:11px;color:#7b8a92;">${new Date(m.ts).toLocaleString()}</span></div><div style="margin-top:6px;">${escapeHtml(m.text)}</div>`;
+  div.appendChild(img);
+  div.appendChild(content);
+  chatBox.appendChild(div);
+  chatBox.scrollTop = chatBox.scrollHeight;
+});
+
+function escapeHtml(s) {
+  if (!s) return '';
+  return s.replace(/[&<>"'`]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;","`":"&#96;"})[c]);
+}
+
+clearBtn.addEventListener('click', ()=>{ chatBox.innerHTML=''; });
+
+// Inject original game's HTML (orig_index.html) into #gameArea and execute its scripts
+(async function injectGame(){ 
+  try {
+    const resp = await fetch('./orig_index.html');
+    if (!resp.ok) { document.getElementById('gameArea').innerHTML = '<p>Não foi possível carregar o jogo.</p>'; return; }
+    const text = await resp.text();
+    // Parse the HTML to extract body content and scripts
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(text, 'text/html');
+    // Move all styles from orig <head> into this document head
+    const headNodes = doc.head ? Array.from(doc.head.children) : [];
+    headNodes.forEach(node => {
+      if (node.tagName.toLowerCase() === 'script') return; // defer scripts
+      document.head.appendChild(node.cloneNode(true));
+    });
+    // Inject body content into gameArea
+    const bodyHtml = doc.body ? doc.body.innerHTML : text;
+    const gameArea = document.getElementById('gameArea');
+    gameArea.innerHTML = bodyHtml;
+    // Now handle scripts: inline and external
+    const scripts = doc.querySelectorAll('script');
+    for (const s of scripts) {
+      if (s.src) {
+        // external script: create script tag with same src
+        const newS = document.createElement('script');
+        newS.src = s.src;
+        // preserve async/defer attributes
+        if (s.async) newS.async = true;
+        if (s.defer) newS.defer = true;
+        document.body.appendChild(newS);
+        // wait a bit for sequential loading (not strict)
+        await new Promise(res => newS.onload = res);
+      } else {
+        // inline script: execute by creating a new script element with its text
+        const code = s.textContent || s.innerText || '';
+        if (code.trim()) {
+          const newS = document.createElement('script');
+          newS.text = code;
+          document.body.appendChild(newS);
+        }
+      }
+    }
+  } catch (e) {
+    document.getElementById('gameArea').innerHTML = '<p>Erro ao injetar o jogo: '+e.message+'</p>';
+  }
+})();
+
+</script>
+</body>
+</html>

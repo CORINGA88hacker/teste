@@ -1,0 +1,32 @@
+
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Perfil</title><link rel="stylesheet" href="style.css"></head>
+<body class="theme-dark">
+  <main class="container small">
+    <h2>Perfil</h2>
+    <div class="perfil">
+      <img id="fotoPreview" src="personagem_05.png" alt="foto" class="avatar">
+      <input id="fileInput" type="file" accept="image/*">
+      <input id="displayName" placeholder="Nome de exibição">
+      <div class="row"><button onclick="saveProfile()">Salvar</button></div>
+      <p id="status"></p>
+    </div>
+  </main>
+  <script src="firebase.js"></script>
+  <script>
+  async function saveProfile(){
+    const file = document.getElementById('fileInput').files[0];
+    const name = document.getElementById('displayName').value || 'Jogador';
+    document.getElementById('status').textContent = 'Salvando...';
+    try{
+      const url = file ? await firebaseUploadProfilePhoto(file) : null;
+      await firebaseSaveProfile({ displayName: name, photoURL: url });
+      document.getElementById('status').textContent='Perfil salvo.';
+    }catch(e){
+      document.getElementById('status').textContent='Erro: '+e.message;
+    }
+  }
+  </script>
+</body>
+</html>

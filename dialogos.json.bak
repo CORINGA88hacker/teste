@@ -1,0 +1,36 @@
+{
+  "titulo": "Sombras do Pátio",
+  "versao": "1.0",
+  "personagens": [
+    {
+      "id": "ale",
+      "nome": "Aley",
+      "descricao": "Protagonista introspectivo"
+    },
+    {
+      "id": "mar",
+      "nome": "Marina",
+      "descricao": "Amiga observadora"
+    }
+  ],
+  "cenas": [
+    {
+      "id": "cena1",
+      "titulo": "Encontro no pátio",
+      "falas": [
+        {
+          "personagem": "ale",
+          "texto": "O pátio parece maior quando a tarde cai."
+        },
+        {
+          "personagem": "mar",
+          "texto": "As sombras alongam-se como segredos."
+        },
+        {
+          "personagem": "ale",
+          "texto": "Tem algo aqui que me recorda de antes..."
+        }
+      ]
+    }
+  ]
+}

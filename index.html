@@ -1,47 +1,447 @@
 <!doctype html>
-<html lang="pt-BR">
+<html>
 <head>
-  <meta charset="utf-8" />
-  <title>Jogo 2D - Bullying (protótipo)</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link rel="stylesheet" href="style.css" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jogo + Chat Global</title>
+<style>
+  :root{--bg:#071018;--panel:#0d1114;--muted:#9aa0a6;--accent:#ff6b35;}
+  html,body{height:100%;margin:0;font-family:Inter,Segoe UI,Arial;background:linear-gradient(180deg,#041019,#071018);color:#e6eef6;}
+  .app{display:flex;height:100vh;gap:10px;padding:10px;box-sizing:border-box;}
+  .left{flex:1;background:var(--panel);border-radius:10px;overflow:auto;padding:8px;box-sizing:border-box;}
+  .right{width:360px;max-width:40%;background:var(--panel);border-radius:10px;padding:8px;box-sizing:border-box;display:flex;flex-direction:column;}
+  /* Game container will receive the injected game's body */
+  #gameArea{width:100%;height:100%;min-height:300px;}
+  .chatHeader{display:flex;align-items:center;gap:8px;}
+  .profile-preview{width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid #0b0f13;}
+  .chatBox{flex:1;overflow:auto;padding:8px;background:#060709;border-radius:8px;margin-top:8px;}
+  .msg{margin-bottom:8px;padding:6px;border-radius:6px;background:#0b1720;display:flex;gap:8px;align-items:flex-start;}
+  .msg .meta{font-size:12px;color:#9fb0c0;}
+  input,button,textarea{width:100%;box-sizing:border-box;padding:8px;border-radius:6px;border:1px solid #222;background:#071018;color:#eaf3ff}
+  .row{display:flex;gap:8px;}
+  .small{font-size:13px;color:var(--muted);}
+</style>
 </head>
 <body>
-  <div id="overlay-start" class="overlay">
-    <h1>Escolha o nome do personagem</h1>
-    <input id="playerName" placeholder="Digite o nome..." />
-    <button id="startBtn">Começar</button>
+<div class="app">
+  <div class="left" id="leftPanel">
+    <div style="font-weight:700;margin-bottom:8px;">Jogo</div>
+    <div id="gameArea"></div>
   </div>
 
-  <div id="game">
-    <audio id="bgMusic" loop src="musica/fundo.wav"></audio>
-    <div id="scene">
-      <img id="sceneImg" src="" alt="Cenário" />
-      <div id="charactersLayer"></div>
+  <div class="right">
+    <div class="chatHeader">
+      <img id="pfPreview" class="profile-preview" src="" alt="perfil">
+      <div style="flex:1;">
+        <div id="displayName" style="font-weight:700;">Convidado</div>
+        <div class="small" id="schoolLabel">Nome não definido</div>
+      </div>
     </div>
 
-    <div id="ui">
-      <div id="dialogBox">
-        <div id="dialogHistory" class="dialogHistory"></div>
-        
-        <div id="dialogText"></div>
-        <div id="choices"></div>
-      </div>
-      <div id="controls">
-        <div id="ttsControls" class="ttsControls">
-          <button id="ttsToggle">TTS: ON</button>
-          <label>Voz: <select id="voiceSelect"></select></label>
-          <label>Velocidade: <input id="ttsRate" type="range" min="0.5" max="2" step="0.1" value="1"></label>
-          <label>Tom: <input id="ttsPitch" type="range" min="0.5" max="2" step="0.1" value="1"></label>
-          <label>Volume: <input id="ttsVolume" type="range" min="0" max="1" step="0.1" value="1"></label>
-        </div>
-        
-        <button id="nextScenario">Próximo Cenário</button>
-        <div id="progress">Cenário <span id="currentNum">1</span> / 36</div>
+    <div style="margin-top:8px;">
+      <input id="nameInput" placeholder="Escolha um nome público (aparecerá no chat)">
+      <input id="photoFile" type="file" accept="image/*" style="margin-top:6px;">
+      <button id="setProfileBtn" style="margin-top:6px;">Salvar nome & foto</button>
+      <div class="small" style="margin-top:6px;">Seu nome e foto ficam no seu navegador e (opcional) a foto é enviada ao Firebase Storage.</div>
+    </div>
+
+    
+<!-- Admin Panel (hidden unless user is admin) -->
+<div id="adminPanel" style="display:none; margin-top:12px; padding:8px; border-top:1px solid rgba(255,255,255,0.03);">
+  <h3 style="margin:0 0 8px 0;">Painel Admin</h3>
+  <div style="display:flex;gap:6px;flex-wrap:wrap;">
+    <input id="banUidInput" placeholder="UID para banir/desbanir" style="flex:1; min-width:180px" />
+    <button id="banBtn">Banir</button>
+    <button id="unbanBtn">Desbanir</button>
+  </div>
+  <div style="margin-top:8px;display:flex;gap:6px;align-items:center;">
+    <input id="searchInsta" placeholder="Buscar por @instagram" style="flex:1; min-width:140px" />
+    <button id="searchInstaBtn">Buscar</button>
+    <button id="markVerifiedBtn">Marcar verificado</button>
+    <button id="markAdminBtn">Marcar admin</button>
+  </div>
+  <div style="margin-top:8px;"><strong>Logs de ação</strong><div id="adminLogs" style="max-height:160px; overflow:auto; margin-top:6px; background:#071; color:#fff; padding:6px; display:none;"></div></div>
+</div>
+<!-- End Admin Panel -->
+<div class="chatBox" id="chatBox"></div>
+
+    <div style="margin-top:8px;">
+      <textarea id="messageInput" rows="2" placeholder="Escreva sua mensagem..."></textarea>
+      <div class="row" style="margin-top:6px;">
+        <button id="sendBtn">Enviar</button>
+        <button id="clearBtn">Limpar</button>
       </div>
     </div>
   </div>
+</div>
 
-  <script src="game.js"></script>
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-storage-compat.js"></script>
+
+<script src="./firebase.js"></script>
+
+<script>
+initFirebase();
+
+// Basic styles for chat messages (injected to keep UI sane)
+(function addChatStyles(){
+  const css = `
+  .msg{padding:8px;border-bottom:1px solid rgba(255,255,255,0.03);display:block}
+  .msg .meta{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+  .msg .avatar{width:36px;height:36px;border-radius:50%;object-fit:cover;background:#222}
+  .msg .meta strong{font-size:14px}
+  .msg .meta .time{margin-left:8px;color:rgba(255,255,255,0.35);font-size:11px}
+  .msg .text{white-space:pre-wrap;font-size:14px}
+  #gameArea{width:100%;height:calc(100vh - 40px);min-height:360px;background:transparent}
+  #gameFrame{width:100%;height:100%;border:0}
+  `;
+  const s = document.createElement('style');
+  s.textContent = css;
+  document.head.appendChild(s);
+})();
+
+// Utility helpers
+const $ = id => document.getElementById(id);
+const chatBox = $('chatBox');
+const sendBtn = $('sendBtn');
+const messageInput = $('messageInput');
+const nameInput = $('nameInput');
+const photoFile = $('photoFile');
+const pfPreview = $('pfPreview');
+const setProfileBtn = $('setProfileBtn');
+const displayNameEl = $('displayName');
+const schoolLabel = $('schoolLabel');
+const clearBtn = $('clearBtn');
+const gameArea = $('gameArea');
+
+let profile = {
+  name: localStorage.getItem('player_name') || '',
+  photoURL: localStorage.getItem('player_photo') || ''
+};
+
+if (profile.name) { displayNameEl.textContent = profile.name; schoolLabel.textContent = 'Conectado como ' + profile.name; }
+if (profile.photoURL) { try{ pfPreview.src = profile.photoURL; }catch(e){} }
+
+setProfileBtn.addEventListener('click', async () => {
+  const name = nameInput.value.trim();
+  if (!name && !photoFile.files.length) {
+    alert('Escolha um nome ou selecione uma foto para atualizar o perfil.');
+    return;
+  }
+  try {
+    if (photoFile.files.length && window.firebase && firebase.storage) {
+      const file = photoFile.files[0];
+      const storageRef = firebase.storage().ref();
+      const ref = storageRef.child('profiles/' + Date.now() + '_' + file.name);
+      // Use put() to upload (compat)
+      const uploadTask = await ref.put(file);
+      const url = await uploadTask.ref.getDownloadURL();
+      profile.photoURL = url;
+      localStorage.setItem('player_photo', url);
+      pfPreview.src = url;
+    } else if (photoFile.files.length) {
+      // fallback: read as data URL
+      const reader = new FileReader();
+      reader.onload = () => { profile.photoURL = reader.result; localStorage.setItem('player_photo', reader.result); pfPreview.src = reader.result; };
+      reader.readAsDataURL(photoFile.files[0]);
+    }
+    if (name) {
+      profile.name = name;
+      localStorage.setItem('player_name', name);
+      displayNameEl.textContent = name;
+      schoolLabel.textContent = 'Conectado como ' + name;
+    }
+    alert('Perfil salvo.');
+  } catch (e) {
+    console.error('Erro ao salvar perfil', e);
+    alert('Erro ao salvar perfil: ' + e.message + '. Salvando localmente.');
+    if (name) { profile.name = name; localStorage.setItem('player_name', name); displayNameEl.textContent = name; schoolLabel.textContent = 'Conectado como ' + name; }
+  }
+});
+
+// Chat system with multiple fallbacks: Firebase -> BroadcastChannel -> localStorage
+let firebaseAvailable = false;
+try { firebaseAvailable = !!(window.firebase && firebase.database); } catch(e){ firebaseAvailable=false; }
+let chatRef = null;
+if (firebaseAvailable) {
+  try { chatRef = firebase.database().ref('global_chat/messages'); } catch(e) { chatRef = null; firebaseAvailable=false; }
+}
+
+function sanitize(s){ const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+function renderMessage(payload){
+  try {
+    const el = document.createElement('div');
+    el.className = 'msg';
+    const meta = document.createElement('div');
+    meta.className = 'meta';
+    const img = document.createElement('img');
+    img.className = 'avatar';
+    img.src = payload.photo || '';
+    img.onerror = ()=>{ img.src=''; img.style.background='#222'; };
+    const name = document.createElement('strong');
+    name.innerHTML = sanitize(payload.name || 'Convidado');
+    const time = document.createElement('span');
+    time.className = 'time';
+    time.textContent = new Date(payload.ts || Date.now()).toLocaleTimeString();
+    meta.appendChild(img); meta.appendChild(name); meta.appendChild(time);
+    const txt = document.createElement('div');
+    txt.className = 'text';
+    txt.innerHTML = sanitize(payload.text || '');
+    el.appendChild(meta); el.appendChild(txt);
+    chatBox.appendChild(el);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  } catch(e){
+    console.error('renderMessage erro', e);
+  }
+}
+
+// Setup listeners according to available transport
+if (firebaseAvailable && chatRef) {
+  try {
+    chatRef.limitToLast(200).on('child_added', snap=>{
+      const payload = snap.val();
+      renderMessage(payload);
+    });
+  } catch(e) {
+    console.warn('Firebase listener setup failed', e);
+  }
+} else if ('BroadcastChannel' in window) {
+  const bc = new BroadcastChannel('local_global_chat_v1');
+  bc.onmessage = (ev)=> renderMessage(ev.data);
+  // load persisted messages
+  const saved = JSON.parse(localStorage.getItem('local_chat_messages_v1')||'[]');
+  saved.forEach(m=>renderMessage(m));
+} else {
+  const saved = JSON.parse(localStorage.getItem('local_chat_messages_v1')||'[]');
+  saved.forEach(m=>renderMessage(m));
+}
+
+sendBtn.addEventListener('click', async () => {
+  const txt = messageInput.value.trim();
+  if (!txt) return;
+  const payload = { text: txt, name: profile.name || 'Convidado', ts: Date.now(), photo: profile.photoURL || '' };
+  if (firebaseAvailable && chatRef) {
+    try { await chatRef.push(payload); }
+    catch(e){ console.warn('Firebase push failed, falling back', e); fallbackLocalSend(payload); }
+  } else if ('BroadcastChannel' in window) {
+    try { new BroadcastChannel('local_global_chat_v1').postMessage(payload); fallbackLocalStore(payload); }
+    catch(e){ fallbackLocalSend(payload); }
+  } else {
+    fallbackLocalSend(payload);
+  }
+  messageInput.value='';
+});
+
+function fallbackLocalSend(payload){
+  renderMessage(payload);
+  fallbackLocalStore(payload);
+}
+function fallbackLocalStore(payload){
+  const arr = JSON.parse(localStorage.getItem('local_chat_messages_v1')||'[]');
+  arr.push(payload);
+  if (arr.length>500) arr.shift();
+  localStorage.setItem('local_chat_messages_v1', JSON.stringify(arr));
+}
+
+// clear button
+clearBtn.addEventListener('click', ()=>{ chatBox.innerHTML=''; localStorage.removeItem('local_chat_messages_v1'); });
+
+// Inject game as iframe for file:// compatibility
+(function injectGameIframe(){
+  try {
+    gameArea.innerHTML = '';
+    const iframe = document.createElement('iframe');
+    // Prefer orig_index.html, fallback to jogoo-main/index.html
+    const candidates = ['orig_index.html','jogoo-main/index.html','jogoo-main/index.html'];
+    let chosen = candidates[0];
+    // If running via file://, iframe with relative path should work; otherwise try others
+    iframe.src = chosen;
+    iframe.id = 'gameFrame';
+    iframe.allow = 'autoplay; fullscreen';
+    iframe.style.width='100%';
+    iframe.style.height='100%';
+    iframe.style.border='0';
+    gameArea.appendChild(iframe);
+  } catch(e){
+    gameArea.innerHTML = '<p>Não foi possível carregar o jogo na iframe: '+e.message+'</p>';
+  }
+})();
+
+/* --- Additional features injected: media upload, fingerprint, admin handlers, improved message loading --- */
+// Media input for audio/photo/video
+(function addMediaInput(){
+  try {
+    const mb = document.createElement('div');
+    mb.style.marginTop='8px';
+    mb.innerHTML = '<input type="file" id="mediaInput" accept="image/*,video/*,audio/*" style="width:100%;">';
+    // insert before message input area
+    const messageArea = document.querySelector('textarea#messageInput') || document.querySelector('textarea');
+    if(messageArea && messageArea.parentNode){ messageArea.parentNode.insertBefore(mb, messageArea); }
+    window.mediaInput = document.getElementById('mediaInput');
+    mediaInput.addEventListener('change', async (ev)=>{
+      const f = ev.target.files[0];
+      if(!f) return alert('Nenhum arquivo selecionado.');
+      const t = f.type || '';
+      const type = t.startsWith('image/') ? 'image' : t.startsWith('video/') ? 'video' : 'audio';
+      try {
+        if(window.firebase && firebase.storage){
+          const ref = firebase.storage().ref().child('chat_media/'+Date.now()+'_'+f.name);
+          const uploadTask = ref.put(f);
+          uploadTask.on('state_changed', ()=>{}, err=>{ alert('Upload falhou: '+err.message); }, async ()=>{
+            const url = await uploadTask.snapshot.ref.getDownloadURL();
+            const payload = { text:'', ts: Date.now(), type: type, url: url, name: profile.name||'Convidado', photo: profile.photoURL||'', uid: (firebase.auth && firebase.auth().currentUser)?firebase.auth().currentUser.uid:null };
+            if(chatRef){ chatRef.push(payload); } else { fallbackLocalSend(payload); }
+          });
+        } else {
+          // fallback: read as data URL and send
+          const reader = new FileReader();
+          reader.onload = ()=>{
+            const url = reader.result;
+            const payload = { text:'', ts: Date.now(), type: type, url: url, name: profile.name||'Convidado', photo: profile.photoURL||'', uid: null };
+            fallbackLocalSend(payload);
+          };
+          reader.readAsDataURL(f);
+        }
+      } catch(e){ console.error(e); alert('Erro upload: '+e.message); }
+    });
+  } catch(e){ console.error('mediaInput init failed', e); }
+})();
+
+// Fingerprint and device_id
+(function setupFingerprint(){
+  try {
+    function makeFingerprint(){
+      const u = navigator.userAgent || 'na';
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'no-tz';
+      const scr = `${screen.width}x${screen.height}@${screen.pixelDepth||screen.colorDepth||0}`;
+      let seed = localStorage.getItem('device_id');
+      if(!seed){ seed = Date.now().toString(36)+Math.random().toString(36).slice(2); localStorage.setItem('device_id', seed); }
+      const raw = u + '|' + tz + '|' + scr + '|' + seed;
+      return btoa(unescape(encodeURIComponent(raw))).slice(0,50);
+    }
+    window.deviceFingerprint = makeFingerprint();
+    // expose function
+    window.makeFingerprint = makeFingerprint;
+    // show in console
+    console.log('deviceFingerprint', window.deviceFingerprint);
+  } catch(e){ console.error('fingerprint failed', e); }
+})();
+
+// Improved message loading: fetch last messages on connect to ensure we get existing ones
+(function setupFirebaseMessageLoading(){
+  try {
+    if(firebaseAvailable && chatRef){
+      // initial load of last 200 messages once
+      chatRef.limitToLast(200).once('value').then(snapshot=>{
+        chatBox.innerHTML=''; // clear then render
+        snapshot.forEach(snap=>{ renderMessage(snap.val()); });
+      }).catch(e=>{ console.warn('initial load failed', e); });
+      // keep listening for new ones
+      chatRef.limitToLast(200).on('child_added', snap=>{ renderMessage(snap.val()); });
+    } else {
+      // already handled by BroadcastChannel/localStorage elsewhere
+    }
+  } catch(e){ console.error('setupFirebaseMessageLoading failed', e); }
+})();
+
+// Admin handlers (show panel if current user is admin)
+(function setupAdmin(){
+  try {
+    const adminPanel = document.getElementById('adminPanel');
+    const banBtn = document.getElementById('banBtn');
+    const unbanBtn = document.getElementById('unbanBtn');
+    const banUidInput = document.getElementById('banUidInput');
+    const searchInstaBtn = document.getElementById('searchInstaBtn');
+    const searchInsta = document.getElementById('searchInsta');
+    const markVerifiedBtn = document.getElementById('markVerifiedBtn');
+    const markAdminBtn = document.getElementById('markAdminBtn');
+    const adminLogs = document.getElementById('adminLogs');
+
+    async function checkAndShowAdmin(){
+      try {
+        if(window.firebase && firebase.auth && firebase.auth().currentUser){
+          const uid = firebase.auth().currentUser.uid;
+          const snap = await firebase.database().ref('users/'+uid+'/roles').once('value');
+          const roles = snap.val() || {};
+          if(roles.admin){
+            adminPanel.style.display='block';
+            adminLogs.style.display='block';
+          }
+        } else {
+          // For development: if localStorage has is_admin flag, show admin panel
+          if(localStorage.getItem('is_admin')==='1'){ adminPanel.style.display='block'; adminLogs.style.display='block'; }
+        }
+      } catch(e){ console.error('checkAndShowAdmin', e); }
+    }
+
+    banBtn.addEventListener('click', async ()=>{
+      const uid = banUidInput.value.trim();
+      if(!uid) return alert('UID?');
+      try { await firebase.database().ref('users/'+uid).update({ banned: true }); await firebase.database().ref('bans/'+uid).set({ ts: Date.now(), by: (firebase.auth().currentUser?firebase.auth().currentUser.uid:null) }); adminLogs.innerHTML += 'Banido '+uid+'<br>'; alert('Usuário banido.'); } catch(e){ alert('Erro: '+e.message); }
+    });
+    unbanBtn.addEventListener('click', async ()=>{
+      const uid = banUidInput.value.trim();
+      if(!uid) return alert('UID?');
+      try { await firebase.database().ref('users/'+uid).update({ banned: false }); await firebase.database().ref('bans/'+uid).remove(); adminLogs.innerHTML += 'Desbanido '+uid+'<br>'; alert('Usuário desbanido.'); } catch(e){ alert('Erro: '+e.message); }
+    });
+    searchInstaBtn.addEventListener('click', async ()=>{
+      const handle = searchInsta.value.trim();
+      if(!handle) return alert('Handle?');
+      try {
+        const ref = firebase.database().ref('users');
+        const snap = await ref.orderByChild('instagram').equalTo(handle).once('value');
+        if(!snap.exists()) return alert('Nenhum usuário encontrado com esse Instagram.');
+        const found = snap.val();
+        const keys = Object.keys(found||{});
+        banUidInput.value = keys[0];
+        adminLogs.innerHTML += 'Busca @'+handle+' -> '+keys.join(',')+'<br>';
+        alert('Usuário localizado: '+keys.join(','));
+      } catch(e){ alert('Erro: '+e.message); }
+    });
+    markVerifiedBtn.addEventListener('click', async ()=>{
+      const uid = banUidInput.value.trim();
+      if(!uid) return alert('UID?');
+      await firebase.database().ref('users/'+uid+'/roles').update({ verified: true });
+      adminLogs.innerHTML += 'Marked verified '+uid+'<br>';
+      alert('Marcado verificado.');
+    });
+    markAdminBtn.addEventListener('click', async ()=>{
+      const uid = banUidInput.value.trim();
+      if(!uid) return alert('UID?');
+      await firebase.database().ref('users/'+uid+'/roles').update({ admin: true });
+      adminLogs.innerHTML += 'Marked admin '+uid+'<br>';
+      alert('Marcado admin.');
+    });
+
+    // expose check function
+    window.checkAndShowAdmin = checkAndShowAdmin;
+    // run after a short delay (auth may not be ready immediately)
+    setTimeout(checkAndShowAdmin, 1200);
+    if(window.firebase && firebase.auth){
+      firebase.auth().onAuthStateChanged(()=>{ setTimeout(checkAndShowAdmin, 500); });
+    }
+  } catch(e){ console.error('setupAdmin failed', e); }
+})();
+
+// Save access logs on load
+(function saveAccessLog(){
+  try {
+    const uid = (window.firebase && firebase.auth && firebase.auth().currentUser) ? firebase.auth().currentUser.uid : 'guest_'+(localStorage.getItem('device_id')||'local');
+    const logRef = (window.firebase && firebase.database) ? firebase.database().ref('access_logs/'+uid) : null;
+    const item = { ts: Date.now(), ua: navigator.userAgent, tz: Intl.DateTimeFormat().resolvedOptions().timeZone, deviceFinger: window.deviceFingerprint };
+    if(logRef){ logRef.push(item); }
+    // also persist locally
+    const arr = JSON.parse(localStorage.getItem('local_access_logs')||'[]');
+    arr.push(item);
+    if(arr.length>200) arr.shift();
+    localStorage.setItem('local_access_logs', JSON.stringify(arr));
+  } catch(e){ console.error('saveAccessLog', e); }
+})();
+
+/* end additions */
+</script>
 </body>
 </html>
