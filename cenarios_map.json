@@ -1,0 +1,161 @@
+{
+  "cenario_01": [
+    "personagem_02",
+    "personagem_03"
+  ],
+  "cenario_02": [
+   "personagem_01",
+   "personagem_05"
+  ],
+  "cenario_03": [
+    "personagem_00",
+    "personagem_01"
+  ],
+  "cenario_04": [
+    "personagem_06",
+    "personagem_07"
+  ],
+  "cenario_05": [
+    "personagem_08",
+    "personagem_09"
+  ],
+  "cenario_06": [
+    "personagem_10",
+    "personagem_11"
+  ],
+  "cenario_07": [
+    "personagem_12",
+    "personagem_13",
+    "personagem_14"
+  ],
+  "cenario_08": [
+    "personagem_06",
+    "personagem_14"
+  ],
+  "cenario_09": [
+    "personagem_09",
+    "personagem_05",
+    "personagem_07"
+  ],
+  "cenario_10": [
+    "personagem_04",
+    "personagem_03",
+    "personagem_13"
+  ],
+  "cenario_11": [
+    "personagem_12",
+    "personagem_19"
+  ],
+  "cenario_12": [
+    "personagem_02",
+    "personagem_15",
+    "personagem_04"
+  ],
+  "cenario_13": [
+    "personagem_03",
+    "personagem_18",
+    "personagem_10"
+  ],
+  "cenario_14": [
+    "personagem_19",
+    "personagem_07",
+    "personagem_03"
+  ],
+  "cenario_15": [
+    "personagem_08",
+    "personagem_10"
+  ],
+  "cenario_16": [
+    "personagem_08",
+    "personagem_04"
+  ],
+  "cenario_17": [
+    "personagem_09",
+    "personagem_15",
+    "personagem_12"
+  ],
+  "cenario_18": [
+    "personagem_12",
+    "personagem_19"
+  ],
+  "cenario_19": [
+    "personagem_09",
+    "personagem_03"
+  ],
+  "cenario_20": [
+    "personagem_18",
+    "personagem_08"
+  ],
+  "cenario_21": [
+    "personagem_15",
+    "personagem_13"
+  ],
+  "cenario_22": [
+    "personagem_18",
+    "personagem_08",
+    "personagem_11"
+  ],
+  "cenario_23": [
+    "personagem_08",
+    "personagem_02"
+  ],
+  "cenario_24": [
+    "personagem_13",
+    "personagem_09",
+    "personagem_03"
+  ],
+  "cenario_25": [
+    "personagem_19",
+    "personagem_11"
+  ],
+  "cenario_26": [
+    "personagem_16",
+    "personagem_13"
+  ],
+  "cenario_27": [
+    "personagem_05",
+    "personagem_09",
+    "personagem_19"
+  ],
+  "cenario_28": [
+    "personagem_18",
+    "personagem_19"
+  ],
+  "cenario_29": [
+    "personagem_19",
+    "personagem_14",
+    "personagem_13"
+  ],
+  "cenario_30": [
+    "personagem_08",
+    "personagem_05",
+    "personagem_17"
+  ],
+  "cenario_31": [
+    "personagem_03",
+    "personagem_02",
+    "personagem_04"
+  ],
+  "cenario_32": [
+    "personagem_06",
+    "personagem_14"
+  ],
+  "cenario_33": [
+    "personagem_13",
+    "personagem_19"
+  ],
+  "cenario_34": [
+    "personagem_17",
+    "personagem_09",
+    "personagem_01"
+  ],
+  "cenario_35": [
+    "personagem_18",
+    "personagem_09"
+  ],
+  "cenario_36": [
+    "personagem_04",
+    "personagem_10",
+    "personagem_14"
+  ]
+}
