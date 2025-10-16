@@ -1,30 +1,40 @@
-
 <!doctype html>
 <html lang="pt-BR">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin</title><link rel="stylesheet" href="style.css"></head>
-<body class="theme-dark">
-  <main class="container">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin — Sombras do Pátio</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="firebase.js"></script>
+</head>
+<body class="theme">
+  <main>
     <h2>Painel Admin</h2>
-    <div id="adminArea">
-      <p>Ver mensagens e moderar (somente admin).</p>
-      <div id="msgs"></div>
+    <div id="admin-tools">
+      <button id="refresh">Atualizar mensagens</button>
+      <div id="messages-list"></div>
     </div>
   </main>
-  <script src="firebase.js"></script>
   <script>
-  async function loadAdmin(){
-    const msgs = await firebaseFetchChat();
-    const el = document.getElementById('msgs');
-    el.innerHTML = '';
-    msgs.forEach(m => {
-      const div = document.createElement('div');
-      div.className='admin-msg';
-      div.innerHTML = `<img src="${m.photo||'personagem_05.png'}" class="mini"/><strong>${m.user}</strong>: ${m.text} <button onclick="del('${m.id}')">Apagar</button>`;
-      el.appendChild(div);
+    document.getElementById('refresh').addEventListener('click', async ()=> {
+      const msgs = await window.AppChat.fetchRecent();
+      const container = document.getElementById('messages-list');
+      container.innerHTML = '';
+      msgs.forEach(m => {
+        const el = document.createElement('div');
+        el.className = 'msg';
+        el.innerHTML = `<strong>${m.author}</strong>: ${m.text}
+          <div class="admin-actions">
+            <button data-id="${m.id}" class="btn-ban">Banir</button>
+            <button data-id="${m.id}" class="btn-delete">Apagar</button>
+            <button data-id="${m.id}" class="btn-pin">Fixar</button>
+          </div>`;
+        container.appendChild(el);
+      });
+      container.querySelectorAll('.btn-delete').forEach(b=>{
+        b.onclick = async (ev) => { await window.AppChat.deleteMessage(b.dataset.id); b.parentElement.parentElement.remove(); }
+      });
     });
-  }
-  async function del(id){ await firebaseDeleteMessage(id); loadAdmin(); }
-  loadAdmin();
   </script>
 </body>
 </html>

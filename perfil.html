@@ -1,32 +1,35 @@
-
 <!doctype html>
 <html lang="pt-BR">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Perfil</title><link rel="stylesheet" href="style.css"></head>
-<body class="theme-dark">
-  <main class="container small">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Perfil — Sombras do Pátio</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="firebase.js"></script>
+</head>
+<body class="theme">
+  <main class="profile">
     <h2>Perfil</h2>
-    <div class="perfil">
-      <img id="fotoPreview" src="personagem_05.png" alt="foto" class="avatar">
-      <input id="fileInput" type="file" accept="image/*">
-      <input id="displayName" placeholder="Nome de exibição">
-      <div class="row"><button onclick="saveProfile()">Salvar</button></div>
-      <p id="status"></p>
+    <div id="profile-info">
+      <img id="profile-photo" alt="Foto de perfil" />
+      <p id="profile-email"></p>
+      <input type="file" id="photo-file" accept="image/*" />
+      <button id="upload-photo">Enviar foto</button>
     </div>
+    <button id="logout">Sair</button>
   </main>
-  <script src="firebase.js"></script>
+
   <script>
-  async function saveProfile(){
-    const file = document.getElementById('fileInput').files[0];
-    const name = document.getElementById('displayName').value || 'Jogador';
-    document.getElementById('status').textContent = 'Salvando...';
-    try{
-      const url = file ? await firebaseUploadProfilePhoto(file) : null;
-      await firebaseSaveProfile({ displayName: name, photoURL: url });
-      document.getElementById('status').textContent='Perfil salvo.';
-    }catch(e){
-      document.getElementById('status').textContent='Erro: '+e.message;
-    }
-  }
+    document.getElementById('logout').addEventListener('click', ()=> window.AppAuth.signOut());
+    document.getElementById('upload-photo').addEventListener('click', async () => {
+      const f = document.getElementById('photo-file').files[0];
+      if (!f) return alert('Escolhe uma imagem');
+      try {
+        await window.AppStorage.uploadProfilePhoto(f);
+        alert('Foto enviada');
+      } catch(err){ alert(err.message || err); }
+    });
+    // firebase.js will populate profile info on auth state changes
   </script>
 </body>
 </html>

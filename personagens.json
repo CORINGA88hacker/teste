@@ -463,24 +463,24 @@
     "image": "personagem/personagem_10.png",
     "lines": [
       {
-        "text": "Ei, eu sou o 10. Como você está?",
+        "text": "Ei, Finalmente a aula acabou",
         "choices": [
           {
-            "text": "Estou bem.",
+            "text": " ",
             "next": "ok",
             "effect": {
               "score": 1
             }
           },
           {
-            "text": "Não muito.",
+            "text": " ",
             "next": "sad",
             "effect": {
               "score": 0
             }
           },
           {
-            "text": "Não é da sua conta.",
+            "text": " ",
             "next": "rude",
             "effect": {
               "score": -1
@@ -489,17 +489,17 @@
         ]
       },
       {
-        "text": "10 pergunta: Você quer conversar sobre bullying?",
+        "text": " ",
         "choices": [
           {
-            "text": "Sim, posso ajudar.",
+            "text": " ",
             "next": "help",
             "effect": {
               "score": 2
             }
           },
           {
-            "text": "Não agora.",
+            "text": " ",
             "next": "later",
             "effect": {
               "score": 0
@@ -514,24 +514,24 @@
     "image": "personagem/personagem_11.png",
     "lines": [
       {
-        "text": "Ei, eu sou o 11. Como você está?",
+        "text": "Você sabe por que o fundo do mar é escuro?",
         "choices": [
           {
-            "text": "Estou bem.",
+            "text": "Não porque",
             "next": "ok",
             "effect": {
               "score": 1
             }
           },
           {
-            "text": "Não muito.",
+            "text": "kkkk sim",
             "next": "sad",
             "effect": {
               "score": 0
             }
           },
           {
-            "text": "Não é da sua conta.",
+            "text": " ",
             "next": "rude",
             "effect": {
               "score": -1
@@ -540,17 +540,17 @@
         ]
       },
       {
-        "text": "11 pergunta: Você quer conversar sobre bullying?",
+        "text": "Porque os negros não sabiam nadar kkkkk",
         "choices": [
           {
-            "text": "Sim, posso ajudar.",
+            "text": "kkkkk",
             "next": "help",
             "effect": {
               "score": 2
             }
           },
           {
-            "text": "Não agora.",
+            "text": "essa foi boa",
             "next": "later",
             "effect": {
               "score": 0

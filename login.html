@@ -1,24 +1,49 @@
-
 <!doctype html>
 <html lang="pt-BR">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Login</title><link rel="stylesheet" href="style.css"></head>
-<body class="theme-dark">
-  <main class="container small">
-    <h2>Login / Cadastro</h2>
-    <form id="authForm">
-      <input id="email" type="email" placeholder="Email" required>
-      <input id="password" type="password" placeholder="Senha" required>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Login — Sombras do Pátio</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="firebase.js"></script>
+</head>
+<body class="theme">
+  <main class="auth">
+    <h2>Entrar / Criar conta</h2>
+    <form id="login-form">
+      <input id="email" type="email" placeholder="Email" required />
+      <input id="password" type="password" placeholder="Senha" required />
       <div class="row">
-        <button type="button" onclick="login()">Entrar</button>
-        <button type="button" onclick="signup()">Criar Conta</button>
+        <button type="submit">Entrar</button>
+        <button id="create-account" type="button">Criar conta</button>
       </div>
     </form>
-    <p id="authMsg"></p>
+    <p id="auth-msg"></p>
   </main>
-  <script src="firebase.js"></script>
+
   <script>
-  async function login(){ document.getElementById('authMsg').textContent='Entrando...'; try{ await firebaseLogin(document.getElementById('email').value, document.getElementById('password').value); window.location='index.html'; }catch(e){ document.getElementById('authMsg').textContent = e.message; } }
-  async function signup(){ document.getElementById('authMsg').textContent='Criando...'; try{ await firebaseSignup(document.getElementById('email').value, document.getElementById('password').value); window.location='perfil.html'; }catch(e){ document.getElementById('authMsg').textContent = e.message; } }
+    // Basic wiring; firebase.js exposes auth functions
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const pw = document.getElementById('password').value;
+      try {
+        await window.AppAuth.signIn(email, pw);
+        location.href = 'index.html';
+      } catch (err) {
+        document.getElementById('auth-msg').textContent = err.message || err;
+      }
+    });
+    document.getElementById('create-account').addEventListener('click', async () => {
+      const email = document.getElementById('email').value;
+      const pw = document.getElementById('password').value;
+      try {
+        await window.AppAuth.createAccount(email, pw);
+        location.href = 'index.html';
+      } catch (err) {
+        document.getElementById('auth-msg').textContent = err.message || err;
+      }
+    });
   </script>
 </body>
 </html>
